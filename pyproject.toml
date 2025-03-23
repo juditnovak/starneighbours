@@ -1,0 +1,43 @@
+[project]
+name = "fastapi-demo"
+version = "0.1.0"
+description = "FastAPI demo project"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "bcrypt>=4.3.0",
+    "fastapi[standard]>=0.115.11",
+    "isort>=6.0.1",
+    "mypy>=1.15.0",
+    "passlib>=1.7.4",
+    "pudb>=2024.1.3",
+    "pydantic-settings>=2.8.1",
+    "pyjwt>=2.10.1",
+    "pyright>=1.1.397",
+    "redis>=5.2.1",
+    "requests>=2.32.3",
+    "ruff>=0.11.0",
+    "tox>=4.24.2",
+    "types-passlib>=1.7.7.20250319",
+    "types-requests>=2.32.0.20250306",
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[dependency-groups]
+tests = [
+    "pudb>=2024.1.3",
+    "pytest>=8.3.5",
+    "pytest-coverage>=0.0",
+    "pytest-mock>=3.14.0",
+    "pytest-pudb>=0.7.0",
+    "responses>=0.25.7",
+]

@@ -1,0 +1,31 @@
+services:
+
+  redis:
+    image: redis/redis-stack-server:7.2.0-v6
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_data:/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: always
+    tty: true
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: "redis"
+      # Dev environment: avoiding interference with existing local venv
+      UV_PROJECT_ENVIRONMENT: ".venv_docker"
+    ports:
+      - 8000:8000
+    # Dev environment: live updates
+    volumes:
+      - ./:/home/application
+
+volumes:
+  redis_data:

@@ -1,0 +1,29 @@
+name: ci
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+      - name: Setup environment
+        run: |
+          uv sync --frozen --all-groups
+          pip install tox
+      - name: Run lint
+        run: tox run -e lint
+      - name: Run type check
+        run: tox run -e type
+      - name: Run tests
+        run: tox run -e test

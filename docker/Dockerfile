@@ -12,17 +12,17 @@ RUN pip install uv
 #
 # Dev environment
 #
-
-CMD ["uv", "run", "fastapi", "dev", "--host", "0.0.0.0", "starneighbours/main.py"]
+#
+# CMD ["uv", "run", "fastapi", "dev", "--host", "0.0.0.0", "starneighbours/main.py"]
 
 
 
 #
 # Prod environment
 #
-# COPY pyproject.toml ./
-# COPY uv.lock ./
-# RUN pip install uv && uv sync --frozen
-#
-# COPY . .
-# CMD ["uv", "run", "fastapi", "run", "--host", "0.0.0.0", "starneighbours/main.py"]
+COPY pyproject.toml ./
+COPY uv.lock ./
+RUN pip install uv && uv sync --frozen
+
+COPY . .
+CMD ["uv", "run", "fastapi", "run", "--host", "0.0.0.0", "starneighbours/main.py"]

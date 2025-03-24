@@ -87,7 +87,9 @@ Underlying tools are `pyright`, `mypy`, `uv` and `ruff`.
 - The application output is not using limits/paging yet.
   - Note: Unfortunately with the current algorithm the whole dataset has to be processed before returning results. Thus paging won't improve execution time.
 - Authentication should be set up for Redis
-
+- Investigating async/threading options
+  - Note: [GitHub is discouraging "hammering" on the endpoints](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api?apiVersion=2022-11-28)
+- Currently only public repositories are taken into account. However the authenticated user should be able to query more (though superficial check may not confirm this theory). To be investigated.
 
 
 

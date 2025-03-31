@@ -1,3 +1,4 @@
+import datetime
 import logging
 from typing import Generator, Iterable
 
@@ -68,6 +69,8 @@ def get_gazers_of_repo(token: str, user: str, repo: str) -> list[StarNeighbour]:
 
     Cache is used to store essential data.
     """
+    start = datetime.datetime.now()
+        
     calc = {}
     retval = []
     all_repos: set[str] = set()
@@ -99,12 +102,19 @@ def get_gazers_of_repo(token: str, user: str, repo: str) -> list[StarNeighbour]:
     if not repo_cached:
         cache_set(repo_cache_key(repo), encode_list(all_gazers))
 
-    for repo in all_repos:
-        rg = {"repo": repo, "stargazers": []}
+    calc_start = datetime.datetime.now()
+    for neighbour_repo in all_repos:
+        rg = {"repo": neighbour_repo, "stargazers": []}
         for gazername in calc:
-            if repo in calc[gazername]:
+            if neighbour_repo in calc[gazername]:
                 rg["stargazers"].append(gazername)  # type: ignore [attr-defined]
 
         retval.append(StarNeighbour(**rg))  # type: ignore [arg-type]
+
+    end = datetime.datetime.now()
+    delta = end - start
+    calc_delta = end - calc_start
+    logger.info("Collected and calculated repo %s gazers (took: %s seconds)", repo, str(delta.total_seconds()))
+    logger.debug("Calculation time: %s seconds", str(calc_delta.total_seconds()) )
 
     return retval

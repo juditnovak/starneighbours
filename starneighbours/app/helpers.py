@@ -22,7 +22,7 @@ def query_list(token: str, url: str) -> Generator[dict, None, None]:
     params = {"per_page": 100}
     while next_page:
         resp = requests.get(next_page, headers=generate_headers(token), params=params)
-        logger.debug("Feching URL %s", url)
+        logger.debug("Feched URL %s (time taken: %s)", url, resp.elapsed.total_seconds())
 
         next_page = resp.links.get("next", {}).get("url")
         params = {}

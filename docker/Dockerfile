@@ -25,4 +25,4 @@ COPY uv.lock ./
 RUN pip install uv && uv sync --frozen
 
 COPY . .
-CMD ["uv", "run", "fastapi", "run", "--host", "0.0.0.0", "starneighbours/main.py"]
+CMD ["uv", "run", "fastapi", "run", "starneighbours/main.py"]

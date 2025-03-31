@@ -2,7 +2,7 @@
   <p>
     <label for="name">Name:</label>
     <input type="text" id="login" name="login" />
-    <input type="hidden" id="client_id" name="client_id" value="Ov23liaY5Pr6JFIS3tXR" />
+    <input type="hidden" id="client_id" name="client_id" value="$GITHUB_CLIENT_ID" />
   </p>
 </form>
 

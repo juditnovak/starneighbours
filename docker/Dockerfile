@@ -4,7 +4,7 @@ RUN mkdir /home/application
 WORKDIR /home/application
 
 RUN apt-get update && \
-    apt-get install -y libpq-dev
+    apt-get install -y libpq-dev gettext-base
 
 RUN pip install uv
 
@@ -25,4 +25,7 @@ COPY uv.lock ./
 RUN pip install uv && uv sync --frozen
 
 COPY . .
-CMD ["uv", "run", "fastapi", "run", "--host", "0.0.0.0", "starneighbours/main.py"]
+
+RUN envsubst < static/login.html.template > static/login.html
+
+CMD ["uv", "run", "fastapi", "run", "starneighbours/main.py"]

@@ -21,6 +21,8 @@ services:
       REDIS_HOST: "redis"
       # Dev environment: avoiding interference with existing local venv
       UV_PROJECT_ENVIRONMENT: ".venv_docker"
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
     ports:
       - 8000:8000
     # Dev environment: live updates
